@@ -14,15 +14,15 @@ import com.workshop.aroundme.data.model.ParentCategoryEntity
 
 class CategoryFragment : Fragment() {
     private var adapter :CategoryAdapter? = null
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(view.context)
+    override fun onViewCreated(fragmentView: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(fragmentView, savedInstanceState)
+        val recyclerView =fragmentView.findViewById(R.id.recyclerView) as RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(fragmentView.context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        val viewFragment = inflater.inflate(R.layout.fragment_list, container, false)
+        return viewFragment
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -34,9 +34,10 @@ class CategoryFragment : Fragment() {
     private fun onCategoriesReady(list: List<ParentCategoryEntity>?) {
         activity?.runOnUiThread {
             val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
-            recyclerView?.layoutManager = LinearLayoutManager(requireContext() , LinearLayout.HORIZONTAL , false)
+            println(list)
             adapter = CategoryAdapter(list ?: listOf())
             recyclerView?.adapter = adapter
+            adapter?.parentCategories = list.orEmpty()
         }
     }
 }

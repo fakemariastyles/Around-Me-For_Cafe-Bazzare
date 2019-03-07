@@ -5,5 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".app.MainActivity">
-    <SearchView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/searchBar" android:padding="3dp"></SearchView>
 </FrameLayout>
