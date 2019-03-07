@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.workshop.aroundme.R
 import com.workshop.aroundme.app.Injector
+import com.workshop.aroundme.app.ui.categories.categoryChildDetail.CategoryChildDetailFragment
+import com.workshop.aroundme.data.model.CategoryEntity
 import com.workshop.aroundme.data.model.ParentCategoryEntity
 
-class CategoryFragment : Fragment() {
+class CategoryFragment : Fragment() , OnCategoryChildItemClickListener {
     private var adapter :CategoryAdapter? = null
     override fun onViewCreated(fragmentView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(fragmentView, savedInstanceState)
@@ -35,9 +37,16 @@ class CategoryFragment : Fragment() {
         activity?.runOnUiThread {
             val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
             println(list)
-            adapter = CategoryAdapter(list ?: listOf())
+            adapter = CategoryAdapter(list ?: listOf() , this   )
             recyclerView?.adapter = adapter
             adapter?.parentCategories = list.orEmpty()
         }
+    }
+
+    override fun OnCategoryChildClicked(categoryEntity: CategoryEntity) {
+       fragmentManager?.beginTransaction()
+           ?.replace(R.id.content_frame , CategoryChildDetailFragment.newInstance(categoryEntity.name))
+           ?.addToBackStack(null)
+           ?.commit()
     }
 }

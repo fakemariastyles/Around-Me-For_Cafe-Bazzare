@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   android:orientation="vertical"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/iconImage"
-               app:layout_constraintBottom_toTopOf="@id/parentCategoryName"
-               app:layout_constraintHorizontal_bias="0.0"
-               app:layout_constraintVertical_bias="0.0"
-               app:layout_constraintEnd_toEndOf="@id/childCategoryName"
-               android:background="#646060"/>
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/childCategoryName"
-              app:layout_constraintBottom_toTopOf="@id/parentCategoryName"
-              app:layout_constraintHorizontal_bias="0.0"
-              app:layout_constraintVertical_bias="0.0" />
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_margin="26dp"
+        android:padding="8dp"
+        android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  style="@style/CategoryChildLinearLayout"
+                android:orientation="horizontal">
+    <ImageView
+            style="@style/CategoryChildImage"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/iconImage"/>
+    <TextView
+            style="@style/CategoryChildText"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/childCategoryName"/>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

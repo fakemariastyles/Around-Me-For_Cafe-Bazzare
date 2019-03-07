@@ -10,7 +10,9 @@ import com.workshop.aroundme.R
 import com.workshop.aroundme.data.model.CategoryEntity
 import kotlinx.android.synthetic.main.item_category_child_item.view.*
 
-class CategoryChildAdapter (private val children : List <CategoryEntity>) : RecyclerView.Adapter<CategoryChildViewHolder>() {
+class CategoryChildAdapter (private val children : List <CategoryEntity> ,
+                            private val onCategoryChildItemClickListener: OnCategoryChildItemClickListener):
+    RecyclerView.Adapter<CategoryChildViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryChildViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_category_child_item , parent, false)
         return CategoryChildViewHolder(view)
@@ -20,13 +22,7 @@ class CategoryChildAdapter (private val children : List <CategoryEntity>) : Recy
 
     override fun onBindViewHolder(holder: CategoryChildViewHolder, position: Int) {
         val child = children[position]
-        holder.bind(child)
+        holder.bind(child , onCategoryChildItemClickListener)
     }
-
-    inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-
-        val textView : TextView = itemView.childCategoryName
-        val imageView: ImageView = itemView.iconImage
-
-    }
+    
 }
