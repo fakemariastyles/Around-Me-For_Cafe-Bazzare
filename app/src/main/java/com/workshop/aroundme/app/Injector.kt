@@ -7,6 +7,8 @@ import com.workshop.aroundme.data.repository.CategoryRepository
 import com.workshop.aroundme.data.repository.PlaceRepository
 import com.workshop.aroundme.data.repository.UserRepository
 import com.workshop.aroundme.local.AppDatabase
+import com.workshop.aroundme.local.dao.CategoryDao
+import com.workshop.aroundme.local.datasource.CategoryLocalDataSource
 import com.workshop.aroundme.local.datasource.PlaceLocalDataSource
 import com.workshop.aroundme.local.datasource.UserLocalDataSource
 import com.workshop.aroundme.remote.NetworkManager
@@ -21,8 +23,11 @@ object Injector {
         return Room.databaseBuilder(context, AppDatabase::class.java, "db.data").build()
     }
 
-    fun provideCategoryRepository(): CategoryRepository {
-        return CategoryRepository(CategoryRemoteDataSource(CategoryService(NetworkManager())))
+    fun provideCategoryRepository(context: Context): CategoryRepository {
+        val database = provideAppDatabase(context)
+        return CategoryRepository(CategoryRemoteDataSource(CategoryService(NetworkManager())),
+            CategoryLocalDataSource(database.categoryDao() ,database.categoryChildDao())
+        )
     }
 
     fun providePlaceRepository(context: Context): PlaceRepository {

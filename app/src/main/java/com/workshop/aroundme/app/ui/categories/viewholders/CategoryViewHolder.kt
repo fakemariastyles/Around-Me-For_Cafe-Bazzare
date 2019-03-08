@@ -1,4 +1,4 @@
-package com.workshop.aroundme.app.ui.categories
+package com.workshop.aroundme.app.ui.categories.viewholders
 
 import android.view.View
 import android.widget.ImageView

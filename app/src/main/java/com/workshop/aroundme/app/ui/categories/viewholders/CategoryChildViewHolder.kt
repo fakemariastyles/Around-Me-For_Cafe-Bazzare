@@ -1,4 +1,4 @@
-package com.workshop.aroundme.app.ui.categories
+package com.workshop.aroundme.app.ui.categories.viewholders
 
 import android.view.View
 import android.widget.ImageView
@@ -6,8 +6,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.workshop.aroundme.R
+import com.workshop.aroundme.app.ui.categories.OnCategoryChildItemClickListener
 import com.workshop.aroundme.data.model.CategoryEntity
-import com.workshop.aroundme.data.model.ParentCategoryEntity
 
 class CategoryChildViewHolder (itemView : View) :
     RecyclerView.ViewHolder(itemView) {

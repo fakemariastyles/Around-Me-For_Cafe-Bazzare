@@ -1,16 +1,18 @@
-package com.workshop.aroundme.app.ui.categories
+package com.workshop.aroundme.app.ui.categories.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.workshop.aroundme.R
+import com.workshop.aroundme.app.ui.categories.OnCategoryChildItemClickListener
+import com.workshop.aroundme.app.ui.categories.viewholders.CategoryViewHolder
 import com.workshop.aroundme.data.model.ParentCategoryEntity
 
 class CategoryAdapter(private val items: List<ParentCategoryEntity> ,
-                      private val onCategoryChildItemClickListener: OnCategoryChildItemClickListener)
+                      private val onCategoryChildItemClickListener: OnCategoryChildItemClickListener
+)
     : RecyclerView.Adapter<CategoryViewHolder>() {
     private val viewPool = RecyclerView.RecycledViewPool()
     var categoryView : View? = null
@@ -29,7 +31,10 @@ class CategoryAdapter(private val items: List<ParentCategoryEntity> ,
         val recyclerView = categoryView?.findViewById<RecyclerView>(R.id.nestedRecyclerView)
         recyclerView?.layoutManager = LinearLayoutManager(categoryView?.context)
         val childLayoutManager = LinearLayoutManager(holder.recyclerView.context)
-        recyclerView?.adapter = CategoryChildAdapter(parent.children ?: listOf() , onCategoryChildItemClickListener)
+        recyclerView?.adapter = CategoryChildAdapter(
+            parent.children ?: listOf(),
+            onCategoryChildItemClickListener
+        )
         recyclerView?.setRecycledViewPool(viewPool)
         }
 }

@@ -1,17 +1,16 @@
-package com.workshop.aroundme.app.ui.categories
+package com.workshop.aroundme.app.ui.categories.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.workshop.aroundme.R
+import com.workshop.aroundme.app.ui.categories.OnCategoryChildItemClickListener
+import com.workshop.aroundme.app.ui.categories.viewholders.CategoryChildViewHolder
 import com.workshop.aroundme.data.model.CategoryEntity
-import kotlinx.android.synthetic.main.item_category_child_item.view.*
 
 class CategoryChildAdapter (private val children : List <CategoryEntity> ,
-                            private val onCategoryChildItemClickListener: OnCategoryChildItemClickListener):
+                            private val onCategoryChildItemClickListener: OnCategoryChildItemClickListener
+):
     RecyclerView.Adapter<CategoryChildViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryChildViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_category_child_item , parent, false)

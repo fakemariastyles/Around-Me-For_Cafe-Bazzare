@@ -47,7 +47,7 @@ class HomeFragment : Fragment(), OnHomePlaceItemClickListener {
             adapter = ModernHomeAdapter(list ?: listOf(), this)
             recyclerView?.adapter = adapter
 
-            val categoryRepository = Injector.provideCategoryRepository()
+            val categoryRepository = Injector.provideCategoryRepository(requireContext())
             categoryRepository.getCategories(::onCategoriesReady)
         }
     }

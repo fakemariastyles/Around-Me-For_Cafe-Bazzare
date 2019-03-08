@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.workshop.aroundme.R
 import com.workshop.aroundme.app.Injector
+import com.workshop.aroundme.app.ui.categories.adapters.CategoryAdapter
 import com.workshop.aroundme.app.ui.categories.categoryChildDetail.CategoryChildDetailFragment
 import com.workshop.aroundme.data.model.CategoryEntity
 import com.workshop.aroundme.data.model.ParentCategoryEntity
@@ -29,24 +30,25 @@ class CategoryFragment : Fragment() , OnCategoryChildItemClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val categoryRepository = Injector.provideCategoryRepository()
+        val categoryRepository = Injector.provideCategoryRepository(requireContext())
         categoryRepository.getCategories(::onCategoriesReady)
     }
 
     private fun onCategoriesReady(list: List<ParentCategoryEntity>?) {
         activity?.runOnUiThread {
             val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
-            println(list)
             adapter = CategoryAdapter(list ?: listOf() , this   )
             recyclerView?.adapter = adapter
             adapter?.parentCategories = list.orEmpty()
+            Injector.provideCategoryRepository(requireContext()).saveCategories(list)
+            println(Injector.provideCategoryRepository(requireContext()).getCategoriesFromDataBase())
         }
     }
 
     override fun OnCategoryChildClicked(categoryEntity: CategoryEntity) {
-       fragmentManager?.beginTransaction()
-           ?.replace(R.id.content_frame , CategoryChildDetailFragment.newInstance(categoryEntity.name))
-           ?.addToBackStack(null)
-           ?.commit()
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.content_frame , CategoryChildDetailFragment.newInstance(categoryEntity.name))
+            ?.addToBackStack(null)
+            ?.commit()
     }
 }
