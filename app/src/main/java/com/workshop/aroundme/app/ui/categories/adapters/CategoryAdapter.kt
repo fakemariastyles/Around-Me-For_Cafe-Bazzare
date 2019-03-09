@@ -11,8 +11,7 @@ import com.workshop.aroundme.app.ui.categories.viewholders.CategoryViewHolder
 import com.workshop.aroundme.data.model.ParentCategoryEntity
 
 class CategoryAdapter(private val items: List<ParentCategoryEntity> ,
-                      private val onCategoryChildItemClickListener: OnCategoryChildItemClickListener
-)
+                      private val onCategoryChildItemClickListener: OnCategoryChildItemClickListener)
     : RecyclerView.Adapter<CategoryViewHolder>() {
     private val viewPool = RecyclerView.RecycledViewPool()
     var categoryView : View? = null

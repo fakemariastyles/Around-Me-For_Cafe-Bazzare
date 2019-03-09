@@ -1,13 +1,10 @@
 package com.workshop.aroundme.app.ui.categories
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,34 +14,14 @@ import com.workshop.aroundme.app.ui.categories.adapters.CategoryAdapter
 import com.workshop.aroundme.app.ui.categories.categoryChildDetail.CategoryChildDetailFragment
 import com.workshop.aroundme.data.model.CategoryEntity
 import com.workshop.aroundme.data.model.ParentCategoryEntity
-import kotlin.concurrent.thread
 
-class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
+class SearchFragment : Fragment() , OnCategoryChildItemClickListener {
+    var toBeSearched : String? = null
     private var adapter :CategoryAdapter? = null
     override fun onViewCreated(fragmentView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(fragmentView, savedInstanceState)
-        val toBeSearched = fragmentView.findViewById<EditText>(R.id.searchEditText).text
-        val recyclerView = fragmentView.findViewById(R.id.recyclerView) as RecyclerView
+        val recyclerView =fragmentView.findViewById(R.id.recyclerView) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(fragmentView.context)
-
-
-        view?.findViewById<View?>(R.id.searchButton)?.setOnClickListener() {
-            if (toBeSearched!!.isNotEmpty()) {
-                fragmentManager?.beginTransaction()
-                    ?.replace(R.id.content_frame, SearchFragment.newInstance(toBeSearched.toString()))
-                    ?.addToBackStack(null)
-                    ?.commit()
-            }else{
-                AlertDialog.Builder(fragmentView.context)
-                    .setTitle(getString(R.string.error))
-                    .setMessage("Field Empty")
-                    .setPositiveButton(getString(R.string.ok)) { dialogInterface: DialogInterface, i: Int ->
-                        dialogInterface.dismiss()
-                    }
-                    .create()
-                    .show()
-            }
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,11 +29,17 @@ class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
         return viewFragment
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        toBeSearched = arguments?.getString(KEY_TO_BE_SEARCHED)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val categoryRepository = Injector.provideCategoryRepository(requireContext())
-        categoryRepository.getCategories(::onCategoriesReady)
-    }
+        categoryRepository.getCategoriesFromDataBaseBySearch(toBeSearched , ::OnCategoriesReadyDataBase)
+        }
+
 
     private fun OnCategoriesReadyDataBase(list: List<ParentCategoryEntity>?){
         activity?.runOnUiThread{
@@ -67,23 +50,20 @@ class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
             adapter?.parentCategories = list.orEmpty()
         }
     }
-    private fun onCategoriesReady(list: List<ParentCategoryEntity>?) {
-        activity?.runOnUiThread {
-            val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
-            adapter = CategoryAdapter(list ?: listOf(), this)
-            recyclerView?.adapter = adapter
-            adapter?.parentCategories = list.orEmpty()
-            thread {
-                Injector.provideCategoryRepository(requireContext()).saveCategories(list)
-            }
-        }
-    }
-
     override fun OnCategoryChildClicked(categoryEntity: CategoryEntity) {
         fragmentManager?.beginTransaction()
             ?.replace(R.id.content_frame , CategoryChildDetailFragment.newInstance(categoryEntity.name))
             ?.addToBackStack(null)
             ?.commit()
     }
-
+companion object {
+    fun newInstance(s: String?): SearchFragment {
+        return SearchFragment().apply {
+            arguments = Bundle().apply {
+                putString(KEY_TO_BE_SEARCHED, s)
+            }
+        }
+    }
+    const val KEY_TO_BE_SEARCHED = "toBeSearched"
+}
 }

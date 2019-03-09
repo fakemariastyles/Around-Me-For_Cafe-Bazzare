@@ -19,11 +19,10 @@ class CategoryRepository(private val categoryRemoteDataSource: CategoryRemoteDat
             categoryLocalDataSource.saveCategories(list)
         }
     }
-    fun getCategoriesFromDataBase(): List<ParentCategoryEntity>?{
-        var list : List<ParentCategoryEntity>? = null
+    fun getCategoriesFromDataBaseBySearch(s : String?,success: (List<ParentCategoryEntity>?) -> Unit){
         thread {
-            list = categoryLocalDataSource.getCategories()
+            var list = categoryLocalDataSource.searchCategories(s)
+            success(list)
         }
-        return list
     }
 }

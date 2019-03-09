@@ -7,7 +7,7 @@ import com.workshop.aroundme.local.model.LocalParentCategory
 @Dao
 interface CategoryDao {
     @Query("SELECT * FROM category")
-    fun listAll() : List<LocalParentCategory>
+    fun listAll() : List<LocalParentCategory>?
 
     @Query("DELETE FROM category")
     fun clearAll()
@@ -25,10 +25,8 @@ interface CategoryDao {
 @Dao
 interface CategoryChildDao{
     @Query("SELECT * FROM childcategory WHERE parentId= :id")
-    fun findChildernOfaParent (vararg id: Int): List<LocalCategory>?
+    fun findChildernOfaParent (vararg id: Int?): List<LocalCategory>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(localCategory: LocalCategory)
 }
-
-

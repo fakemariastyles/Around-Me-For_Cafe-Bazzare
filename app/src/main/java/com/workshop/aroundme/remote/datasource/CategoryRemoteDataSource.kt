@@ -2,6 +2,7 @@ package com.workshop.aroundme.remote.datasource
 
 import com.workshop.aroundme.data.mapper.toCategoryEntity
 import com.workshop.aroundme.data.model.ParentCategoryEntity
+import com.workshop.aroundme.remote.model.response.CategoryDto
 import com.workshop.aroundme.remote.service.CategoryService
 
 class CategoryRemoteDataSource(private val categoryService: CategoryService) {
@@ -14,9 +15,12 @@ class CategoryRemoteDataSource(private val categoryService: CategoryService) {
                     name = it.key,
                     children = it.value
                         .map { categoryDto ->
-                            categoryDto.toCategoryEntity()
+                             categoryDto.toCategoryEntity()
                         }
-                )
+                ,Id = it.value
+                        .map { categoryDto->
+                            categoryDto.toCategoryEntity()
+                        }!![0].parentId)
             }
     }
 }

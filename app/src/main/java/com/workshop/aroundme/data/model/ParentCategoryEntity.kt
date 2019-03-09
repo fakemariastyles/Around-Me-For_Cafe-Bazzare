@@ -2,11 +2,13 @@ package com.workshop.aroundme.data.model
 
 data class ParentCategoryEntity(
     val name: String?,
-    val children: List<CategoryEntity>?
+    val children: List<CategoryEntity>?,
+    val Id: Int?
 )
 
 data class CategoryEntity(
     val icon: String?,
     val id: Int?,
-    val name: String?
+    val name: String?,
+    val parentId : Int?
 )

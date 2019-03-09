@@ -7,7 +7,6 @@ import com.workshop.aroundme.data.repository.CategoryRepository
 import com.workshop.aroundme.data.repository.PlaceRepository
 import com.workshop.aroundme.data.repository.UserRepository
 import com.workshop.aroundme.local.AppDatabase
-import com.workshop.aroundme.local.dao.CategoryDao
 import com.workshop.aroundme.local.datasource.CategoryLocalDataSource
 import com.workshop.aroundme.local.datasource.PlaceLocalDataSource
 import com.workshop.aroundme.local.datasource.UserLocalDataSource
@@ -54,4 +53,5 @@ object Injector {
     private fun provideDefaultSharedPref(context: Context): SharedPreferences {
         return context.getSharedPreferences("user.data", Context.MODE_PRIVATE)
     }
+
 }

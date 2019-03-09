@@ -51,13 +51,17 @@ fun DetailResponseDto.toPlaceDetailEntity() = PlaceDetailEntity(
 fun CategoryDto.toCategoryEntity() = CategoryEntity(
     id = id,
     name = name,
-    icon = icon
+    icon = icon,
+    parentId = parent
 )
 
-fun  ParentCategoryEntity.toLocalParentCategory() =LocalParentCategory(name = name ,id =  0)
+fun  ParentCategoryEntity.toLocalParentCategory() = LocalParentCategory(name = name , id = Id)
 
-fun LocalParentCategory.toParentCategoryEntity(children : List<CategoryEntity>) = ParentCategoryEntity(name = name, children = children)
 
-fun CategoryEntity.toLocalCategory(parentId : Int)= LocalCategory(name = name ,id =  id ,icon= icon , ParentId = parentId)
+fun LocalParentCategory.toParentCategoryEntity(children : List<CategoryEntity>?) =  ParentCategoryEntity(name = name, children = children , Id = id )
 
-fun LocalCategory.toCategoryEntity() = CategoryEntity(name , id , icon)
+
+fun CategoryEntity.toLocalCategory(parentId : Int?)= LocalCategory(name = name ,id =  id ,icon= icon , parentId = parentId)
+
+fun LocalCategory.toCategoryEntity() = CategoryEntity(name = name ,id= id ,icon =  icon ,parentId = parentId)
+
