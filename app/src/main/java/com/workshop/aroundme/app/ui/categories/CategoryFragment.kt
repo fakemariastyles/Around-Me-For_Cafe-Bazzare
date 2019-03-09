@@ -26,8 +26,6 @@ class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
         val toBeSearched = fragmentView.findViewById<EditText>(R.id.searchEditText).text
         val recyclerView = fragmentView.findViewById(R.id.recyclerView) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(fragmentView.context)
-
-
         view?.findViewById<View?>(R.id.searchButton)?.setOnClickListener() {
             if (toBeSearched!!.isNotEmpty()) {
                 fragmentManager?.beginTransaction()
@@ -69,6 +67,7 @@ class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
     }
     private fun onCategoriesReady(list: List<ParentCategoryEntity>?) {
         activity?.runOnUiThread {
+            println(list)
             val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
             adapter = CategoryAdapter(list ?: listOf(), this)
             recyclerView?.adapter = adapter
