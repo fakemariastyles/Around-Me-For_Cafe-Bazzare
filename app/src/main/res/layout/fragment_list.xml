@@ -6,8 +6,15 @@
              tools:context=".app.ui.categories.CategoryFragment">
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
 <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal" android:layout_weight="1">
-    <Button android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/searchButton"/>
-    <EditText android:layout_width="0dp" android:layout_weight="3" android:layout_height="wrap_content" android:id="@+id/searchEditText" android:hint="@string/search_here"/>
+    <ImageView
+            android:id="@+id/search_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_search_black"
+            android:layout_gravity="center_vertical"/>
+    <EditText android:layout_width="0dp" android:layout_weight="12" android:layout_height="wrap_content" android:id="@+id/searchEditText" android:hint="@string/search_here"/>
 </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="5dp"

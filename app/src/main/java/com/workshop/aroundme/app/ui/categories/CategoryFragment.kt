@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,11 +24,11 @@ import kotlin.concurrent.thread
 
 class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
     private var adapter :CategoryAdapter? = null
-    override fun onViewCreated(fragmentView: View, savedInstanceState: Bundle?) {
+    override fun  onViewCreated(fragmentView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(fragmentView, savedInstanceState)
         val recyclerView = fragmentView.findViewById(R.id.recyclerView) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(fragmentView.context)
-        view?.findViewById<View?>(R.id.searchButton)?.setOnClickListener() {
+        view?.findViewById<ImageView>(R.id.search_button)?.setOnClickListener() {
             if (fragmentView.findViewById<EditText>(R.id.searchEditText).text!!.isNotEmpty()) {
                 val toBeSearched = fragmentView.findViewById<EditText>(R.id.searchEditText).text
                 fragmentManager?.beginTransaction()
