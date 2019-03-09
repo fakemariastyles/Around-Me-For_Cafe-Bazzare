@@ -2,7 +2,9 @@ package com.workshop.aroundme.app.ui.categories
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,11 +25,11 @@ class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
     private var adapter :CategoryAdapter? = null
     override fun onViewCreated(fragmentView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(fragmentView, savedInstanceState)
-        val toBeSearched = fragmentView.findViewById<EditText>(R.id.searchEditText).text
         val recyclerView = fragmentView.findViewById(R.id.recyclerView) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(fragmentView.context)
         view?.findViewById<View?>(R.id.searchButton)?.setOnClickListener() {
-            if (toBeSearched!!.isNotEmpty()) {
+            if (fragmentView.findViewById<EditText>(R.id.searchEditText).text!!.isNotEmpty()) {
+                val toBeSearched = fragmentView.findViewById<EditText>(R.id.searchEditText).text
                 fragmentManager?.beginTransaction()
                     ?.replace(R.id.content_frame, SearchFragment.newInstance(toBeSearched.toString()))
                     ?.addToBackStack(null)
@@ -56,15 +58,6 @@ class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
         categoryRepository.getCategories(::onCategoriesReady)
     }
 
-    private fun OnCategoriesReadyDataBase(list: List<ParentCategoryEntity>?){
-        activity?.runOnUiThread{
-            println(list)
-            val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
-            adapter = CategoryAdapter(list ?: listOf(), this)
-            recyclerView?.adapter = adapter
-            adapter?.parentCategories = list.orEmpty()
-        }
-    }
     private fun onCategoriesReady(list: List<ParentCategoryEntity>?) {
         activity?.runOnUiThread {
             println(list)
@@ -84,5 +77,4 @@ class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
             ?.addToBackStack(null)
             ?.commit()
     }
-
 }
