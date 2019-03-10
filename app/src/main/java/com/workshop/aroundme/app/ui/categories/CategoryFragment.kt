@@ -8,6 +8,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -29,7 +30,10 @@ class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
         val recyclerView = fragmentView.findViewById(R.id.recyclerView) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(fragmentView.context)
         view?.findViewById<ImageView>(R.id.search_button)?.setOnClickListener() {
-            if (fragmentView.findViewById<EditText>(R.id.searchEditText).text!!.isNotEmpty()) {
+            val editText = fragmentView.findViewById<EditText>(R.id.searchEditText)
+            editText.imeOptions = EditorInfo.IME_ACTION_DONE
+            editText.setSingleLine(true)
+            if (editText.text!!.isNotEmpty()) {
                 val toBeSearched = fragmentView.findViewById<EditText>(R.id.searchEditText).text
                 fragmentManager?.beginTransaction()
                     ?.replace(R.id.content_frame, SearchFragment.newInstance(toBeSearched.toString()))
@@ -49,8 +53,7 @@ class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val viewFragment = inflater.inflate(R.layout.fragment_list, container, false)
-        return viewFragment
+        return inflater.inflate(R.layout.fragment_list, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

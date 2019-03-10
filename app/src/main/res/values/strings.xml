@@ -10,5 +10,5 @@
     <string name="error">Error</string>
     <string name="invalid_user_or_pass">Invalid username or password</string>
     <string name="ok">Ok</string>
-    <string name="search_here">جستجو کنید</string>
+    <string name="search_here">آفلاین جستجو کنید!</string>
 </resources>

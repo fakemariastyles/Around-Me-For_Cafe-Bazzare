@@ -15,7 +15,8 @@
             android:src="@drawable/ic_search_black"
             android:layout_gravity="center_vertical"/>
     <EditText android:layout_width="0dp" android:layout_weight="12" android:layout_height="wrap_content" android:id="@+id/searchEditText" android:hint="@string/search_here" android:layout_marginRight="5dp"
-    android:layout_gravity="center_vertical"/>
+    android:layout_gravity="center_vertical"
+    android:imeOptions="actionSearch" android:maxLines="1" android:inputType="text"/>
 </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
             android:layout_marginRight="5dp"
