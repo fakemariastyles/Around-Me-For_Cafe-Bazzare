@@ -1,6 +1,7 @@
 package com.workshop.aroundme.app.ui.categories
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -12,11 +13,13 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.workshop.aroundme.R
 import com.workshop.aroundme.app.Injector
+import com.workshop.aroundme.app.MainActivity
 import com.workshop.aroundme.app.ui.categories.adapters.CategoryAdapter
 import com.workshop.aroundme.app.ui.categories.categoryChildDetail.CategoryChildDetailFragment
 import com.workshop.aroundme.data.model.CategoryEntity
@@ -42,7 +45,7 @@ class CategoryFragment : Fragment() , OnCategoryChildItemClickListener{
             }else{
                 AlertDialog.Builder(fragmentView.context)
                     .setTitle(getString(R.string.error))
-                    .setMessage("Field Empty")
+                    .setMessage(R.string.filed_empty)
                     .setPositiveButton(getString(R.string.ok)) { dialogInterface: DialogInterface, i: Int ->
                         dialogInterface.dismiss()
                     }

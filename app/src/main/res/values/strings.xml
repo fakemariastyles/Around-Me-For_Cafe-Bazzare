@@ -11,4 +11,6 @@
     <string name="invalid_user_or_pass">Invalid username or password</string>
     <string name="ok">Ok</string>
     <string name="search_here">آفلاین جستجو کنید!</string>
+    <string name="filed_empty">برای جستجو عبارتی وارد کنید</string>
+    <string name="log_error">خطا</string>
 </resources>

@@ -11,14 +11,14 @@
                   android:layout_height="wrap_content"
                   style="@style/CategoryChildLinearLayout"
                 android:orientation="horizontal">
-    <ImageView
-            style="@style/CategoryChildImage"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/iconImage"/>
     <TextView
             style="@style/CategoryChildText"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:id="@+id/childCategoryName"/>
+        <ImageView
+                style="@style/CategoryChildImage"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/iconImage"/>
     </LinearLayout>
 
 </RelativeLayout>
